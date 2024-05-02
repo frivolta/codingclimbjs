@@ -73,4 +73,40 @@
     body {
       @apply bg-background text-foreground;
     }
+    .description-section{
+    h1 {
+      @apply text-2xl font-bold leading-tight;
+    }
+    
+    h2 {
+      @apply text-xl font-bold leading-snug mb-3;
+    }
+    
+    strong,b {
+      @apply font-bold;
+    }
+    
+    em {
+      @apply italic font-semibold;
+    }
+    
+    code {
+      @apply  bg-accent text-sm font-mono p-1 rounded-md;
+    }
+    
+    blockquote {
+      @apply italic border-l-4 pl-4 py-2 ;
+    }
+    ul {
+      @apply list-disc list-inside;
+    }
+    
+    li {
+      @apply mb-1 leading-relaxed;
+    }
+    
+    p {
+      @apply my-4 text-base leading-relaxed;
+    }
+    }
   }
