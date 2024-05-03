@@ -4,30 +4,35 @@ import { okaidia } from "@uiw/codemirror-theme-okaidia";
 import { javascript } from "@codemirror/lang-javascript";
 import { FC, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useCodeEditor } from "./hooks/useCodeEditor";
+
 interface CodeEditorProps {
   initialCode: string;
   solution: string;
 }
 
 export const CodeEditor: FC<CodeEditorProps> = ({ initialCode, solution }) => {
-  const [code, setCode] = useState<string>(initialCode);
-
-  const _handleSendCode = () => {
-    console.log(code);
-  };
-  const _handleResetCode = () => {
-    setCode(initialCode);
-  };
-  const _handleSolution = () => {
-    setCode(solution);
-  };
+  const {
+    code,
+    setCode,
+    handleResetCode,
+    handleSendCode,
+    handleSolution,
+    isLoading,
+    error,
+    result,
+  } = useCodeEditor({ initialCode, solution });
   return (
     <>
-      <Button onClick={_handleResetCode}>Reset code</Button>
-      <Button variant="secondary" onClick={_handleSendCode}>
+      <Button onClick={handleResetCode} disabled={isLoading}>
+        Reset code
+      </Button>
+      <Button variant="secondary" onClick={handleSendCode} disabled={isLoading}>
         Send Code
       </Button>
-      <Button onClick={_handleSolution}>Solution</Button>
+      <Button onClick={handleSolution} disabled={isLoading}>
+        Solution
+      </Button>
       <CodeMirror
         value={code}
         height="500px"
@@ -48,6 +53,8 @@ export const CodeEditor: FC<CodeEditorProps> = ({ initialCode, solution }) => {
           syntaxHighlighting: true,
         }}
       />
+      {!!result && <p>{result.evaluationCode}</p>}
+      {!!error && <p>{error}</p>}
     </>
   );
 };
